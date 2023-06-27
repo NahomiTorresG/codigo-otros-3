@@ -6,10 +6,11 @@ const productos = [
   {nombre: "Bota negra", tipo: "bota", color: "negro", img: "./bota-negra.jpg"},
   {nombre: "Bota azul", tipo: "bota", color: "azul", img: "./bota-azul.jpg"},
   {nombre: "Zapato rojo", tipo: "zapato", color: "rojo", img: "./zapato-rojo.jpg"}
-]
+];
 
-const li = document.getElementsByName("lista-de-productos")
-const $i = document.querySelector('.input');
+//Se cambia el getElementsByName por getelementsById
+const li = document.getElementById("lista-de-productos")
+const $i = document.querySelector('.input'); //input no es clase ni id, se agrega la clase input al html porque si en un futuro se tienen más inputs, se puede arruinar el código
 
 for (let i = 0; i < productos.length; i++) {
   var d = document.createElement("div")
@@ -25,21 +26,27 @@ for (let i = 0; i < productos.length; i++) {
   d.appendChild(ti)
   d.appendChild(imagen)
 
-  li.appendChild(d)
-}
+  li.appendChild(d);
+}//agregamos los ; donde hacen falta
 
-displayProductos(productos)
+//displayProductos(productos)  Comentamos esta funcion ya que no hace nada por el momento
+
+//boton de filtro
 const botonDeFiltro = document.querySelector("button");
 
+//funcion que hace que con el click se active
 botonDeFiltro.onclick = function() {
   while (li.firstChild) {
     li.removeChild(li.firstChild);
   }
 
   const texto = $i.value;
+  //este console log es del texto que se escribe en el input
   console.log(texto);
   const productosFiltrados = filtrado(productos, texto );
 
+
+  //Este for está creando un div
   for (let i = 0; i < productosFiltrados.length; i++) {
     var d = document.createElement("div")
     d.classList.add("producto")
@@ -58,6 +65,9 @@ botonDeFiltro.onclick = function() {
   }
 }
 
+
+//Filtro para mostrar en pantalla lo solicitado en el input/Funcion tipo flecha
 const filtrado = (productos = [], texto) => {
+  //retorna los productos del tipo o color que escriba en la descripcion
   return productos.filter(item => item.tipo.includes(texto) || item.color.includes(texto));
 }  
